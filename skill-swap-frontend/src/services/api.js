@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://odoo-hackathon-2025-llu1.onrender.com/';
 
 // Create axios instance with base configuration
 const api = axios.create({
