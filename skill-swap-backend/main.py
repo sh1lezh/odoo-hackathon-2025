@@ -1,0 +1,49 @@
+from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from . import models, schemas, database
+
+app = FastAPI()
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # React default port
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Dependency
+def get_db():
+    db = next(database.get_db())
+    try:
+        yield db
+    finally:
+        db.close()
+
+# Create tables
+models.Base.metadata.create_all(bind=database.engine)
+
+@app.post("/register/")
+def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = models.User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return {"message": "User registered successfully"}
+
+@app.post("/login/")
+def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if not db_user or db_user.password != user.password:
+        raise HTTPException(status_code=400, detail="Invalid credentials")
+    return {"message": "Login successful"}
+
+@app.post("/skill-swap-request/")
+def create_skill_swap_request(request: schemas.SkillSwapRequestCreate, db: Session = Depends(get_db)):
+    db_request = models.SkillSwapRequest(**request.dict(), user_id=1)  # Hardcoded user_id for now
+    db.add(db_request)
+    db.commit()
+    db.refresh(db_request)
+    return {"message": "Skill swap request created"}
