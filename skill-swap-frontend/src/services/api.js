@@ -1,45 +1,47 @@
-import React, { useState } from 'react';
 import axios from 'axios';
 
-const SkillSwapForm = () => {
-  const [formData, setFormData] = useState({ skills_offered: '', skills_wanted: '', message: '' });
+const API_BASE_URL = 'http://localhost:8000';
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000', formData);
-      alert(response.data.message);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+// Create axios instance with base configuration
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <select
-        value={formData.skills_offered}
-        onChange={(e) => setFormData({ ...formData, skills_offered: e.target.value })}
-      >
-        <option value="">Choose one of your offered skills</option>
-        <option value="Skill1">Skill1</option>
-        <option value="Skill2">Skill2</option>
-      </select>
-      <select
-        value={formData.skills_wanted}
-        onChange={(e) => setFormData({ ...formData, skills_wanted: e.target.value })}
-      >
-        <option value="">Choose one of their wanted skills</option>
-        <option value="Skill3">Skill3</option>
-        <option value="Skill4">Skill4</option>
-      </select>
-      <textarea
-        value={formData.message}
-        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-        placeholder="Message"
-      />
-      <button type="submit">Submit</button>
-    </form>
-  );
+// Authentication APIs
+export const authAPI = {
+  register: async (userData) => {
+    const response = await api.post('/register/', userData);
+    return response.data;
+  },
+
+  login: async (credentials) => {
+    const response = await api.post('/login/', credentials);
+    return response.data;
+  },
 };
 
-export default SkillSwapForm;
+// User APIs
+export const userAPI = {
+  getProfile: async (userId) => {
+    const response = await api.get(`/user/${userId}`);
+    return response.data;
+  },
+};
+
+// Skill Swap Request APIs
+export const skillSwapAPI = {
+  createRequest: async (requestData) => {
+    const response = await api.post('/skill-swap-request/', requestData);
+    return response.data;
+  },
+
+  getRequests: async () => {
+    const response = await api.get('/skill-swap-requests/');
+    return response.data;
+  },
+};
+
+export default api;
