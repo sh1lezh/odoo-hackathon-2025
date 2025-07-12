@@ -69,9 +69,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm ring-2 ring-white/30">
-            <span className="text-2xl text-glow">🔄</span>
-          </div>
+          {/* Logo removed */}
           <h2 className="mt-6 text-3xl font-extrabold text-white text-glow">
             Sign in to your account
           </h2>
