@@ -1,8 +1,8 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import Optional
 
 class UserCreate(BaseModel):
-    email: str
+    email: EmailStr
     password: str
     name: str
     location: Optional[str] = None
@@ -10,7 +10,7 @@ class UserCreate(BaseModel):
     availability: Optional[str] = None
 
 class UserLogin(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 class SkillSwapRequestCreate(BaseModel):
