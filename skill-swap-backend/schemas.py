@@ -17,3 +17,11 @@ class SkillSwapRequestCreate(BaseModel):
     skills_offered: str
     skills_wanted: str
     message: Optional[str] = None
+
+class SkillSwapRequestResponse(BaseModel):
+    id: int
+    user_id: int
+    skills_offered: str
+    skills_wanted: str
+    message: Optional[str] = None
+    status: str
