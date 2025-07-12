@@ -27,6 +27,10 @@ def get_db():
 # Create tables
 models.Base.metadata.create_all(bind=database.engine)
 
+@app.get("/")
+def read_root():
+    return {"message": "Skill Swap API is running!"}
+
 @app.post("/register/")
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = models.User(**user.dict())
@@ -53,7 +57,7 @@ def create_skill_swap_request(request: schemas.SkillSwapRequestCreate, db: Sessi
 @app.get("/skill-swap-requests/")
 def get_skill_swap_requests(db: Session = Depends(get_db)):
     requests = db.query(models.SkillSwapRequest).all()
-    return [schemas.SkillSwapRequestResponse.from_orm(request) for request in requests]
+    return [schemas.SkillSwapRequestResponse.model_validate(request) for request in requests]
 
 @app.get("/user/{user_id}")
 def get_user_profile(user_id: int, db: Session = Depends(get_db)):

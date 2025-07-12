@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useUsers } from '../contexts/UserContext';
+import { authAPI } from '../services/api';
 import { Mail, Lock, Eye, EyeOff, User, MapPin } from 'lucide-react';
 
 const Signup = () => {
@@ -61,23 +62,23 @@ const Signup = () => {
     }
 
     try {
-      // Mock signup - in real app, this would call an API
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-      
-      // Create user account
-      const mockUser = {
-        id: Date.now().toString(),
+      // Call the real API to register user
+      const userData = {
         email: formData.email,
-        name: formData.name
+        password: formData.password,
+        name: formData.name,
+        location: formData.location || null
       };
+      
+      const response = await authAPI.register(userData);
       
       // Auto-login after signup
       login(formData.email, formData.password);
       
       // Create initial profile
       const initialProfile = {
-        id: Date.now().toString(),
-        userId: mockUser.id,
+        id: response.user_id,
+        userId: response.user_id,
         name: formData.name,
         location: formData.location,
         photo: '',
@@ -93,7 +94,12 @@ const Signup = () => {
       // Redirect to profile page to complete setup
       navigate('/profile');
     } catch (err) {
-      setError('Signup failed. Please try again.');
+      console.error('Signup error:', err);
+      if (err.response?.data?.detail) {
+        setError(err.response.data.detail);
+      } else {
+        setError('Signup failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }

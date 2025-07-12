@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { authAPI } from '../services/api';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
@@ -43,8 +44,8 @@ const Login = () => {
     }
 
     try {
-      // Mock login - in real app, this would call an API
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      // Call the real API
+      const response = await authAPI.login(formData);
       const success = login(formData.email, formData.password);
       
       if (success) {
@@ -53,7 +54,12 @@ const Login = () => {
         setError('Invalid credentials');
       }
     } catch (err) {
-      setError('Login failed. Please try again.');
+      console.error('Login error:', err);
+      if (err.response?.data?.detail) {
+        setError(err.response.data.detail);
+      } else {
+        setError('Login failed. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }

@@ -25,3 +25,6 @@ class SkillSwapRequestResponse(BaseModel):
     skills_wanted: str
     message: Optional[str] = None
     status: str
+
+    class Config:
+        from_attributes = True
