@@ -69,13 +69,13 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-primary-600">
-            <span className="text-2xl">🔄</span>
+          <div className="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm ring-2 ring-white/30">
+            <span className="text-2xl text-glow">🔄</span>
           </div>
-          <h2 className="mt-6 text-3xl font-extrabold text-white">
+          <h2 className="mt-6 text-3xl font-extrabold text-white text-glow">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-sm text-gray-400">
+          <p className="mt-2 text-sm text-gray-300">
             Welcome back to Skill Swap Platform
           </p>
         </div>
@@ -140,14 +140,14 @@ const Login = () => {
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <a href="#" className="font-medium text-primary-400 hover:text-primary-300">
+              <a href="#" className="font-medium text-white hover:text-gray-300 transition-colors">
                 Forgot your password?
               </a>
             </div>
           </div>
 
           {error && (
-            <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
+            <div className="bg-red-900/80 border border-red-700/50 text-red-200 px-4 py-3 rounded-lg backdrop-blur-sm">
               {error}
             </div>
           )}
@@ -156,11 +156,11 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-black bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 shadow-lg"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
                   <span>Signing in...</span>
                 </div>
               ) : (
@@ -170,9 +170,9 @@ const Login = () => {
           </div>
 
           <div className="text-center">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-gray-300">
               Don't have an account?{' '}
-              <Link to="/signup" className="font-medium text-primary-400 hover:text-primary-300">
+              <Link to="/signup" className="font-medium text-white hover:text-gray-300 transition-colors">
                 Sign up
               </Link>
             </p>

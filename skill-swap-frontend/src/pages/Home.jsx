@@ -85,10 +85,10 @@ const Home = () => {
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-white mb-4">
+        <h1 className="text-4xl font-bold text-white mb-4 text-glow">
           Find Your Perfect Skill Swap
         </h1>
-        <p className="text-gray-400 text-lg">
+        <p className="text-gray-300 text-lg">
           Connect with people who have the skills you need and share your expertise
         </p>
       </div>
@@ -122,7 +122,7 @@ const Home = () => {
 
       {/* Results count */}
       <div className="mb-6">
-        <p className="text-gray-400">
+        <p className="text-gray-300">
           Showing {filteredProfiles.length} of {profiles.length} profiles
         </p>
       </div>
@@ -131,7 +131,7 @@ const Home = () => {
       {currentProfiles.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {currentProfiles.map((profile) => (
-            <div key={profile.id} className="card hover:shadow-xl transition-shadow duration-300">
+            <div key={profile.id} className="card hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:scale-105">
               <div className="flex items-start space-x-4">
                 {/* Profile Photo */}
                 <div className="flex-shrink-0">
@@ -139,10 +139,10 @@ const Home = () => {
                     <img
                       src={profile.photo}
                       alt={profile.name}
-                      className="w-16 h-16 rounded-full object-cover"
+                      className="w-16 h-16 rounded-full object-cover ring-2 ring-white/30"
                     />
                   ) : (
-                    <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-gray-700/80 flex items-center justify-center ring-2 ring-white/30">
                       <User className="w-8 h-8 text-gray-400" />
                     </div>
                   )}
@@ -156,18 +156,18 @@ const Home = () => {
                     </h3>
                     <div className="flex items-center space-x-1">
                       {renderStars(profile.rating)}
-                      <span className="text-sm text-gray-400 ml-1">
+                      <span className="text-sm text-gray-300 ml-1">
                         {profile.rating}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center text-sm text-gray-400 mb-3">
+                  <div className="flex items-center text-sm text-gray-300 mb-3">
                     <MapPin className="w-4 h-4 mr-1" />
                     <span>{profile.location}</span>
                   </div>
 
-                  <div className="flex items-center text-sm text-gray-400 mb-4">
+                  <div className="flex items-center text-sm text-gray-300 mb-4">
                     <Clock className="w-4 h-4 mr-1" />
                     <span>{profile.availability}</span>
                   </div>
@@ -175,18 +175,18 @@ const Home = () => {
                   {/* Skills */}
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs font-medium text-gray-400 mb-1">Offers:</p>
+                      <p className="text-xs font-medium text-gray-300 mb-1">Offers:</p>
                       <div className="flex flex-wrap gap-1">
                         {profile.skillsOffered.slice(0, 3).map((skill, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 bg-primary-600 text-white text-xs rounded-full"
+                            className="px-2 py-1 bg-white/20 text-white text-xs rounded-full backdrop-blur-sm border border-white/30"
                           >
                             {skill}
                           </span>
                         ))}
                         {profile.skillsOffered.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-600 text-gray-300 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-gray-600/80 text-gray-300 text-xs rounded-full backdrop-blur-sm">
                             +{profile.skillsOffered.length - 3}
                           </span>
                         )}
@@ -194,18 +194,18 @@ const Home = () => {
                     </div>
 
                     <div>
-                      <p className="text-xs font-medium text-gray-400 mb-1">Wants:</p>
+                      <p className="text-xs font-medium text-gray-300 mb-1">Wants:</p>
                       <div className="flex flex-wrap gap-1">
                         {profile.skillsWanted.slice(0, 3).map((skill, index) => (
                           <span
                             key={index}
-                            className="px-2 py-1 bg-gray-600 text-gray-300 text-xs rounded-full"
+                            className="px-2 py-1 bg-gray-600/80 text-gray-300 text-xs rounded-full backdrop-blur-sm"
                           >
                             {skill}
                           </span>
                         ))}
                         {profile.skillsWanted.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-600 text-gray-300 text-xs rounded-full">
+                          <span className="px-2 py-1 bg-gray-600/80 text-gray-300 text-xs rounded-full backdrop-blur-sm">
                             +{profile.skillsWanted.length - 3}
                           </span>
                         )}
@@ -240,7 +240,7 @@ const Home = () => {
         <div className="text-center py-12">
           <div className="text-gray-400 text-6xl mb-4">🔍</div>
           <h3 className="text-xl font-semibold text-white mb-2">No profiles found</h3>
-          <p className="text-gray-400">
+          <p className="text-gray-300">
             Try adjusting your search terms or filters
           </p>
         </div>
@@ -261,10 +261,10 @@ const Home = () => {
             <button
               key={page}
               onClick={() => handlePageChange(page)}
-              className={`px-3 py-2 rounded-lg ${
+              className={`px-3 py-2 rounded-lg transition-colors ${
                 currentPage === page
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                  ? 'bg-white text-black shadow-lg'
+                  : 'bg-gray-700/80 text-gray-300 hover:bg-gray-600/90 backdrop-blur-sm'
               }`}
             >
               {page}

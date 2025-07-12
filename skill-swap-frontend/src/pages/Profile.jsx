@@ -157,10 +157,10 @@ const Profile = () => {
         </div>
 
         {message && (
-          <div className={`mb-4 p-3 rounded-lg ${
+          <div className={`mb-4 p-3 rounded-lg backdrop-blur-sm ${
             message.includes('successfully') 
-              ? 'bg-green-900 border border-green-700 text-green-200'
-              : 'bg-red-900 border border-red-700 text-red-200'
+              ? 'bg-green-900/80 border border-green-700/50 text-green-200'
+              : 'bg-red-900/80 border border-red-700/50 text-red-200'
           }`}>
             {message}
           </div>
@@ -178,10 +178,10 @@ const Profile = () => {
                   <img
                     src={formData.photo}
                     alt="Profile"
-                    className="w-20 h-20 rounded-full object-cover"
+                    className="w-20 h-20 rounded-full object-cover ring-2 ring-white/30"
                   />
                 ) : (
-                  <div className="w-20 h-20 rounded-full bg-gray-700 flex items-center justify-center">
+                  <div className="w-20 h-20 rounded-full bg-gray-700/80 flex items-center justify-center ring-2 ring-white/30">
                     <User className="w-10 h-10 text-gray-400" />
                   </div>
                 )}
@@ -312,7 +312,7 @@ const Profile = () => {
                 checked={formData.isPublic}
                 onChange={handleChange}
                 disabled={!isEditing}
-                className="rounded border-gray-600 text-primary-600 focus:ring-primary-500 bg-gray-700"
+                className="rounded border-gray-600 text-white focus:ring-white bg-gray-700/80"
               />
               <span className="text-sm font-medium text-gray-300">
                 Make profile public
